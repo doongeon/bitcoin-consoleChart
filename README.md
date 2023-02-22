@@ -4,5 +4,5 @@
   - 주요 코인 시계열 분석도 예정
 
 - files
- - basic_order.ipynb
-   기본적인 주문, 주문 확인 함수 구현
+  - basic_order.ipynb
+      기본적인 주문, 주문 확인 함수 구현
