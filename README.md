@@ -1,2 +1,5 @@
-# bitcoin-trader
-bitcoin trade python code for private
+# 비트코인 자동 매매 프로그램
+업비트 api를 이용한 비트코인 매매 프로그램 구현
+
+- basic_order
+  기본적인 주문, 주문 확인 함수 구현
