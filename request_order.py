@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[4]:
+# In[2]:
 
 
 # !pip install pyjwt
@@ -14,7 +14,7 @@ import importlib
 import upbit_keys as keys
 
 
-# In[5]:
+# In[3]:
 
 
 server_url = 'https://api.upbit.com'
@@ -68,6 +68,7 @@ def get_balance():
 # 비트코인 조회
 # 입력 : .
 # 출력 : (float) volume
+#        (int) -1 [코인이 없다면]
 ############################################################################
 
 def get_coin_balance():
@@ -76,7 +77,7 @@ def get_coin_balance():
         if(asset['currency'] == 'BTC'):
             return float(asset['balance'])
         elif (i == len(assets)-1):
-            print('COIN_BALANCE_EMPTY')
+            return -1
 
 
         
@@ -348,8 +349,14 @@ def get_last_ask():
     return result
 
 
-# In[6]:
+# In[4]:
 
 
 get_ipython().system('jupyter nbconvert --to script request_order.ipynb')
+
+
+# In[ ]:
+
+
+
 
