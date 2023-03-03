@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+import request_order as req
 import request_chart as chart
 import R_ts_functions as r
 
@@ -23,8 +24,8 @@ import R_ts_functions as r
 ############################################################################
 
 def req_candles(count):
-#     candles = chart.candle_min_30(count)
-    candles = chart.candle_min_01(count) # 실험용
+    candles = chart.candle_min_15(count)
+#     candles = chart.candle_min_01(count) # 실험용
 
     # make as dataframe
     candles = pd.DataFrame(candles)
@@ -49,8 +50,67 @@ def get_open_price(count):
 def get_trade_price(count):
     return req_candles(count)[['trade_price']].squeeze()
 
+    
+    
+############################################################################
+# 평균이동선
+# input : ( series, days )
+# output : 지난 5일간 평균 가격 dataframe
+############################################################################
+
+def get_ma(Y, days=5):
+    temp = (Y.cumsum() - Y.cumsum().shift(days)) / days
+    return temp
 
 
+
+############################################################################
+# get_ts
+# input : (int) count
+# output : (series) time series
+# description : .
+############################################################################
+
+def get_ts(count):
+    temp = get_open_price(count)
+    
+    cur_price = req.get_curret_price()
+    cur_price = pd.Series(float(cur_price))
+
+    pd.concat(
+        [temp, cur_price],
+        ignore_index=True
+    )
+
+    return temp
+
+
+
+############################################################################
+# ma가 포함된 시세 그래프
+# input : (int) lags
+# output : .
+# description : ma가 포함된 시세 그래프를 보여준다
+############################################################################
+
+def show_plot_trade(lags = 50):
+    Y = get_ts(lags)
+
+    ma1 = get_ma(Y, days = 5)
+    ma2 = get_ma(Y, days = 20)
+
+    plt.plot(Y)
+    plt.plot(ma1)
+    plt.plot(ma2)
+    plt.xlim(20, lags+1)
+    plt.legend(['price', 'ma_5', 'ma_20'])
+    plt.xlabel('lag')
+    plt.ylabel('price')
+    plt.title('KRW-BTC')
+    plt.show()
+    
+    
+    
 ############################################################################
 # 시세 그래프
 # input : .
@@ -72,108 +132,8 @@ def show_plot_LowHigh(lags = 30):
 
     plt.show()
 
-    
-    
-############################################################################
-# 평균이동선
-# input : ( series, days )
-# output : 지난 5일간 평균 가격 dataframe
-############################################################################
 
-def get_ma(Y, days=5):
-    temp = (Y.cumsum() - Y.cumsum().shift(days)) / days
-    return temp
-
-
-
-############################################################################
-# top
-# input : (series) ts
-# output : last value of ts
-# description : .
-############################################################################
-
-def top(ts):
-    return ts[len(ts)-1]
-
-    
-
-############################################################################
-# push
-# input : ( series, value )
-# output : .
-# description : push value in series
-############################################################################
-
-def push(Y, val):
-    Y[len(Y)] = val
-
-    
-    
-############################################################################
-# pop
-# input : ( series )
-# output : poped value
-# description : .
-############################################################################
-
-def pop(Y):
-    return Y.pop(len(Y) - 1)
-
-
-
-############################################################################
-# get_ts
-# input : (int) count
-# output : (series) time series
-# description : .
-############################################################################
-
-def get_ts(count):
-    temp = get_open_price(count-1)
-    push(temp, chart.get_curret_price())
-    return temp
-
-
-
-############################################################################
-# refresh_ts
-# input : (series) ts
-# output : .
-# description : refrech current price in time series
-############################################################################
-
-def refresh_ts(ts):
-    pop(ts)
-    push(ts, chart.get_curret_price())
-
-    
-    
-############################################################################
-# ma가 포함된 시세 그래프
-# input : (int) lags
-# output : .
-# description : ma가 포함된 시세 그래프를 보여준다
-############################################################################
-
-def show_plot_trade(lags = 50):
-    Y = get_ts(lags)
-
-    ma1 = get_ma(Y, days = 5)
-    ma2 = get_ma(Y, days = 20)
-
-    plt.plot(Y)
-    plt.plot(ma1)
-    plt.plot(ma2)
-    plt.xlim(20, lags+1)
-    plt.legend(['price', 'ma_5', 'ma_20'])
-    plt.xlabel('lag')
-    plt.ylabel('price')
-    plt.title('KRW-BTC (30mins)')
-    plt.show()
-
-
-# In[3]:
+# In[184]:
 
 
 # !jupyter nbconvert --to script ts_analysis.ipynb

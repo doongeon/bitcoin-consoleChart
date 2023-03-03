@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[3]:
 
 
 # !pip install pyjwt
@@ -14,7 +14,7 @@ import importlib
 import upbit_keys as keys
 
 
-# In[3]:
+# In[4]:
 
 
 server_url = 'https://api.upbit.com'
@@ -349,14 +349,32 @@ def get_last_ask():
     return result
 
 
-# In[4]:
+
+############################################################################
+# 현재 시장가 json 들고오기
+# 입력 : .
+# 출력 : 현재 시장가 json
+############################################################################
+
+def current_price():
+    url = "https://api.upbit.com/v1/ticker/?markets=KRW-BTC"
+
+    headers = {"accept": "application/json"}
+
+    response = requests.get(url, headers=headers)
+
+    return response.json()
 
 
-get_ipython().system('jupyter nbconvert --to script request_order.ipynb')
 
+############################################################################
+# 현재 시장가 들고오기
+# 입력 : .
+# 출력 : (float) 현재 시장가
+############################################################################
 
-# In[ ]:
-
+def get_curret_price():
+    return float(current_price()[0]['trade_price'])
 
 
 
