@@ -349,32 +349,8 @@ def get_last_ask():
     return result
 
 
-
-############################################################################
-# 현재 시장가 json 들고오기
-# 입력 : .
-# 출력 : 현재 시장가 json
-############################################################################
-
-def current_price():
-    url = "https://api.upbit.com/v1/ticker/?markets=KRW-BTC"
-
-    headers = {"accept": "application/json"}
-
-    response = requests.get(url, headers=headers)
-
-    return response.json()
+# In[7]:
 
 
-
-############################################################################
-# 현재 시장가 들고오기
-# 입력 : .
-# 출력 : (float) 현재 시장가
-############################################################################
-
-def get_curret_price():
-    return float(current_price()[0]['trade_price'])
-
-
+# !jupyter nbconvert --to script request_order.ipynb
 
