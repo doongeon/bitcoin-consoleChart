@@ -87,10 +87,10 @@ def trade2(rec, option):
         ma_5 = ts.get_ma(Y, candles = 5)
         ma_20 = ts.get_ma(Y, candles = 20)
         
-        a_ = ma_5[len(ma_5)-2] # a'
-        a = ma_5[len(ma_5)-3] # a
-        b_ = ma_20[len(ma_20)-2] # b'
-        b = ma_20[len(ma_20)-3] # b
+        a_ = ma_5[len(ma_5)-1] # a'
+        a = ma_5[len(ma_5)-2] # a
+        b_ = ma_20[len(ma_20)-1] # b'
+        b = ma_20[len(ma_20)-2] # b
 
         slope = r.diff(ma_5)
 
@@ -115,14 +115,14 @@ def trade2(rec, option):
                 order = ro.ord_ask_market() # 매도
                 rec.append(order)
                 print('profit!')
-                print('profit : {}'.format(counter, (price-coast)/coast))
+                print('profit : {}'.format((price-coast)/coast))
                 print(order)
                 
                 
         time.sleep(1)
 
 
-# In[62]:
+# In[14]:
 
 
 # Y = ts.get_ts(40, option = 4)
@@ -131,7 +131,7 @@ def trade2(rec, option):
 
 # slope = r.diff(ma_20)
 
-# slope[-1:]
+# slope[-1:] > 0 
 
 
 # In[27]:
@@ -199,7 +199,7 @@ def trade3(rec, option):
 # trade2(rec, option = 1)
 
 
-# In[4]:
+# In[5]:
 
 
 # !jupyter nbconvert --to script trader.ipynb
