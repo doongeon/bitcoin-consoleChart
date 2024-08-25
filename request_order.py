@@ -1,16 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
-# !pip install pyjwt
-import jwt
+import jwt # !pip install pyjwt
 import hashlib
 import requests
 import uuid
 from urllib.parse import urlencode, unquote
-import importlib
 import upbit_keys as keys
 
 
@@ -43,10 +35,11 @@ def asset_check(server_url = server_url):
     jwt_token = jwt.encode(payload, keys.secret_key)
     authorization = 'Bearer {}'.format(jwt_token)
     headers = {
-      'Authorization': authorization,
+        'Authorization': authorization,
     }
 
     res = requests.get(server_url + '/v1/accounts', headers=headers)
+
     return res.json()
 
 
@@ -105,7 +98,7 @@ def get_buy_price():
 
 def market_price(market, server_url = server_url):
     params = {
-      'market': 'KRW-' + market
+        'market': 'KRW-' + market
     }
     query_string = unquote(urlencode(params, doseq=True)).encode("utf-8")
 
@@ -123,7 +116,7 @@ def market_price(market, server_url = server_url):
     jwt_token = jwt.encode(payload, keys.secret_key)
     authorization = 'Bearer {}'.format(jwt_token)
     headers = {
-      'Authorization': authorization,
+        'Authorization': authorization,
     }
 
     res = requests.get(server_url + '/v1/orders/chance', params=params, headers=headers)
@@ -158,7 +151,7 @@ def order_check(order_id, server_url = server_url):
     jwt_token = jwt.encode(payload, keys.secret_key)
     authorization = 'Bearer {}'.format(jwt_token)
     headers = {
-      'Authorization': authorization,
+        'Authorization': authorization,
     }
 
     res = requests.get(server_url + '/v1/order', params=params, headers=headers)
@@ -174,7 +167,7 @@ def order_check(order_id, server_url = server_url):
 
 def cancel_order(server_url = server_url):
     params = {
-      'uuid': '00000000-0000-0000-0000-000000000000'
+        'uuid': '00000000-0000-0000-0000-000000000000'
     }
     query_string = unquote(urlencode(params, doseq=True)).encode("utf-8")
 
@@ -192,7 +185,7 @@ def cancel_order(server_url = server_url):
     jwt_token = jwt.encode(payload, keys.secret_key)
     authorization = 'Bearer {}'.format(jwt_token)
     headers = {
-      'Authorization': authorization,
+        'Authorization': authorization,
     }
 
     res = requests.delete(server_url + '/v1/order', params=params, headers=headers)
@@ -208,7 +201,7 @@ def cancel_order(server_url = server_url):
 
 def coin_order(side_option, price = 'NULL', volume = 'NULL', server_url = server_url):
     params = {
-      'market': 'KRW-BTC',
+        'market': 'KRW-BTC',
     }
     
     # [side_option] ( 0 : 매수 , 1 : 매도 )
@@ -240,7 +233,7 @@ def coin_order(side_option, price = 'NULL', volume = 'NULL', server_url = server
     jwt_token = jwt.encode(payload, keys.secret_key)
     authorization = 'Bearer {}'.format(jwt_token)
     headers = {
-      'Authorization': authorization,
+        'Authorization': authorization,
     }
 
     res = requests.post(server_url + '/v1/orders', json=params, headers=headers)
@@ -251,7 +244,7 @@ def coin_order(side_option, price = 'NULL', volume = 'NULL', server_url = server
 ############################################################################
 # 시장가 매수
 # 입력 : int 매수금액
-# 출력 : 실패시 -1 반환
+# 출력 : 실패시 -1 반환show_plot_trade
 #        성공시 주문내역에 해당하는 json 반환
 ############################################################################
 
@@ -292,7 +285,7 @@ def ord_ask_market(volume = 0):
 def orderList_check(server_url = server_url):
     params = {
         # [states option] ( 조회할 주문 상태 ) 
-      'states[]': ['done', 'cancel']
+        'states[]': ['done', 'cancel']
     }
     query_string = unquote(urlencode(params, doseq=True)).encode("utf-8")
 
@@ -310,7 +303,7 @@ def orderList_check(server_url = server_url):
     jwt_token = jwt.encode(payload, keys.secret_key)
     authorization = 'Bearer {}'.format(jwt_token)
     headers = {
-      'Authorization': authorization,
+        'Authorization': authorization,
     }
 
     res = requests.get(server_url + '/v1/orders', params=params, headers=headers)
@@ -347,10 +340,3 @@ def get_last_ask():
             result = orderList_check()[i]
             break;
     return result
-
-
-# In[7]:
-
-
-# !jupyter nbconvert --to script request_order.ipynb
-

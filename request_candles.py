@@ -1,21 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-# !pip install requests
-# !pip install nbconvert
-
-
-# In[4]:
-
-
 import requests
-
-
-# In[7]:
-
 
 # 일단은 비트코인 시장만을 목표로
 
@@ -61,10 +44,3 @@ def candle_days(count):
     response = requests.get(url, headers=headers)
 
     return response.json()
-
-
-# In[10]:
-
-
-# !jupyter nbconvert --to script request_candles.ipynb
-
