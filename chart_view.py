@@ -43,6 +43,7 @@ def showCandlePlot():
     fig.width = 90
     fig.height = 50
     fig.color_mode = 'byte'
+    fig.set_x_limits(min_=0, max_=155)
     
     drawMarket(fig, plotData)
     drawMA(fig, window_size=15, lc=1)
