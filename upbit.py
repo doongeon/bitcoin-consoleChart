@@ -97,40 +97,12 @@ def getBuyPrice():
         
     print('upbit.py: no coin buy price')
 
-############################################################################
-# 주문 가능정보 조회
-# 입력 : (str) 코인 티커
-#        ex) 'BTC'
-# 출력 : 입력한 코인 시장 정보 json
-############################################################################
-
-def market_price(market, server_url = server_url):
-    params = {
-        'market': 'KRW-' + market
-    }
-    query_string = unquote(urlencode(params, doseq=True)).encode("utf-8")
-
-    m = hashlib.sha512()
-    m.update(query_string)
-    query_hash = m.hexdigest()
-
-    payload = {
-        'access_key': keys.access_key,
-        'nonce': str(uuid.uuid4()),
-        'query_hash': query_hash,
-        'query_hash_alg': 'SHA512',
-    }
-
-    jwt_token = jwt.encode(payload, keys.secret_key)
-    authorization = 'Bearer {}'.format(jwt_token)
-    headers = {
-        'Authorization': authorization,
-    }
-
-    res = requests.get(server_url + '/v1/orders/chance', params=params, headers=headers)
+def getCurrentPrice():
+    res = requests.get(
+        server_url + '/v1/ticker?markets=KRW-BTC',
+        headers = {"accept": "application/json"}
+    )
     return res.json()
-
-
 
 ############################################################################
 # 개별 주문 조회
