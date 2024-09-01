@@ -41,7 +41,7 @@ def showCandlePlot():
 
     fig = plotille.Figure()
     fig.width = 90
-    fig.height = 50
+    fig.height = 30
     fig.color_mode = 'byte'
     fig.set_x_limits(min_=0, max_=155)
     
