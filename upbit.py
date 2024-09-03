@@ -95,7 +95,7 @@ def getBuyPrice():
         if(asset['currency'] == 'BTC'):
             return float(asset['avg_buy_price'])
         
-    print('upbit.py: no coin buy price')
+    return 0
 
 def getCurrentPrice():
     res = requests.get(
