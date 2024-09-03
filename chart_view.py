@@ -40,8 +40,8 @@ def showCandlePlot():
     plotData = candle_store.plotData()
 
     fig = plotille.Figure()
-    fig.width = 90
-    fig.height = 30
+    fig.width = 50
+    fig.height = 15
     fig.color_mode = 'byte'
     fig.set_x_limits(min_=0, max_=155)
     
