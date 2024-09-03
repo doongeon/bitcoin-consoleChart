@@ -7,7 +7,7 @@ def balance_view():
 
 def returnView():
     print(
-        f'****    getRateOfReturn: {" - " if upbit.getCoinBalance() == 0 else f"{StatStore.getRateOfReturn()} &"}'
+        f'****    getRateOfReturn: {" - " if upbit.getCoinBalance() == 0 else f"{StatStore.getRateOfReturn()} %"}'
     )
     print(
         f'****    profit: {" - " if upbit.getCoinBalance() == 0 else f"{StatStore.getProfit()} WON"}'
