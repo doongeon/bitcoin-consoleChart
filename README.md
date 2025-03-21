@@ -10,6 +10,6 @@ https://github.com/user-attachments/assets/a29c69f7-0aa3-4963-abd0-0c293f79e554
 ```
 python3 -m venv venv
 source venv/bin/activate
-pip install pandas, plotille, requests
+pip install pandas plotille requests
 python3 main.py
 ```
