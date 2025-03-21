@@ -22,10 +22,10 @@ def getRequestHeader(queryHash):
     }
 
 
-def getAuthorizedHeader(queryHash):
-    return {
-        'Authorization': 'Bearer {}'.format(jwt.encode(getRequestHeader(queryHash), keys.secret_key)),
-    }
+# def getAuthorizedHeader(queryHash):
+#     return {
+#         'Authorization': 'Bearer {}'.format(jwt.encode(getRequestHeader(queryHash), keys.secret_key)),
+#     }
 
 server_url = 'https://api.upbit.com'
 
@@ -111,16 +111,16 @@ def getCurrentPrice():
 # 출력 : 입력한 주문에 대한 내용 json
 ############################################################################
 
-def order_check(order_id, server_url = server_url):
-    params = {
-        'uuid': order_id
-    }
-    res = requests.get(
-        server_url + '/v1/order',
-        params=params,
-        headers=getAuthorizedHeader(queryHash=getQueryHash(params=params))
-    )
-    return res.json()
+# def order_check(order_id, server_url = server_url):
+#     params = {
+#         'uuid': order_id
+#     }
+#     res = requests.get(
+#         server_url + '/v1/order',
+#         params=params,
+#         headers=getAuthorizedHeader(queryHash=getQueryHash(params=params))
+#     )
+#     return res.json()
 
 
 ############################################################################
@@ -129,36 +129,36 @@ def order_check(order_id, server_url = server_url):
 # 출력 : 매도, 매수 주문내용에 해당하는 json
 ############################################################################
 
-def buyCoin():
-    params = {
-        'market': 'KRW-BTC',
-        'side': 'bid',
-        'ord_type': 'price',
-        'price': f'{getCashBalance() * 0.99}'
-    }
+# def buyCoin():
+#     params = {
+#         'market': 'KRW-BTC',
+#         'side': 'bid',
+#         'ord_type': 'price',
+#         'price': f'{getCashBalance() * 0.99}'
+#     }
 
-    res = requests.post(
-        server_url + '/v1/orders',
-        json=params,
-        headers=getAuthorizedHeader(queryHash=getQueryHash(params=params))
-    )
+#     res = requests.post(
+#         server_url + '/v1/orders',
+#         json=params,
+#         headers=getAuthorizedHeader(queryHash=getQueryHash(params=params))
+#     )
 
-    return res.json()
+    # return res.json()
 
-def sellCoin():
-    params = {
-        'market': 'KRW-BTC',
-        'side': 'ask',
-        'ord_type': 'market',
-        'volume': f'{getCoinBalance()}'
-    }
+# def sellCoin():
+#     params = {
+#         'market': 'KRW-BTC',
+#         'side': 'ask',
+#         'ord_type': 'market',
+#         'volume': f'{getCoinBalance()}'
+#     }
 
-    res = requests.post(
-        server_url + '/v1/orders',
-        json=params,
-        headers=getAuthorizedHeader(queryHash=getQueryHash(params=params))
-    )
-    return res.json()
+#     res = requests.post(
+#         server_url + '/v1/orders',
+#         json=params,
+#         headers=getAuthorizedHeader(queryHash=getQueryHash(params=params))
+#     )
+#     return res.json()
 
 
 
@@ -211,16 +211,16 @@ def orderCoin(side_option, price = 'NULL', volume = 'NULL', server_url = server_
 #        ex) [0]( 최근 ) ~ [...]( 먼 과거 )
 ############################################################################
 
-def orderList_check(server_url = server_url):
-    params = {
-        # [states option] ( 조회할 주문 상태 ) 
-        'states[]': ['done', 'cancel']
-    }
-    queryString = unquote(urlencode(params, doseq=True)).encode("utf-8")
-    queryHash = getQueryHash(queryString=queryString)
-    headers = getAuthorizedHeader(queryHash=queryHash)
-    res = requests.get(server_url + '/v1/orders', params=params, headers=headers)
-    return res.json()
+# def orderList_check(server_url = server_url):
+#     params = {
+#         # [states option] ( 조회할 주문 상태 ) 
+#         'states[]': ['done', 'cancel']
+#     }
+#     queryString = unquote(urlencode(params, doseq=True)).encode("utf-8")
+#     queryHash = getQueryHash(queryString=queryString)
+#     headers = getAuthorizedHeader(queryHash=queryHash)
+#     res = requests.get(server_url + '/v1/orders', params=params, headers=headers)
+#     return res.json()
 
 ############################################################################
 # 마지막 매수 주문 가져오기

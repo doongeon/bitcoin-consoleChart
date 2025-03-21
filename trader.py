@@ -1,8 +1,10 @@
-import upbit
+# import upbit
 import candle_store as CandleStore
 import stat_store as StatStore
 
-logs = [f"start cash balance: {upbit.getCashBalance()}"]
+logs = []
+
+# logs = [f"start cash balance: {upbit.getCashBalance()}"]
 
 def isCall():
     ma15 = CandleStore.getMA(15)
@@ -18,14 +20,14 @@ def isPut():
     isMaFalling = ma15['SMA'].tolist()[-4] > ma15['SMA'].tolist()[-1]
     return isTrendGoLow or isMaFalling
 
-def run():
-    if upbit.getCoinBalance() == 0:
-        if isCall():
-            upbit.buyCoin()
-    else:
-        if isPut():
-            logs.append(f"trade result: {StatStore.getProfit()}")
-            upbit.sellCoin()
+# def run():
+#     if upbit.getCoinBalance() == 0:
+#         if isCall():
+#             upbit.buyCoin()
+#     else:
+#         if isPut():
+#             logs.append(f"trade result: {StatStore.getProfit()}")
+#             upbit.sellCoin()
 
-    for log in logs:
-        print(log)
+#     for log in logs:
+#         print(log)
